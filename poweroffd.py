@@ -3,18 +3,23 @@
 
 """
 Daemon to poweroff the Pi from a momentary push button
+
+Usage:
+    poweroffd
+    poweroffd --pin <pin>
+    poweroffd -h | --help
+
+Options:
+    -h --help  Show this screen.
+    --pin <pin>  GPIO Pin [default: 17]
 """
 
-import argparse
 import logging
 import subprocess
 import sys
 
+import docopt
 import gpiozero
-
-
-DEFAULT_PIN = 17
-logging.basicConfig(level=logging.INFO)
 
 
 def when_pressed():
@@ -36,12 +41,10 @@ def main():
     """
     Parse the arguments and do the thing
     """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--pin', type=int, default=DEFAULT_PIN)
-    args = parser.parse_args()
+    logging.basicConfig(level=logging.INFO)
 
-    logging.info("pin used: %d", args.pin)
-    button = gpiozero.Button(args.pin)
+    logging.info("pin used: %d", args['--pin'])
+    button = gpiozero.Button(int(args['--pin']))
     button.when_pressed = when_pressed
     button.when_held = when_held
 

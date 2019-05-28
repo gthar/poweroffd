@@ -6,7 +6,9 @@ After = systemd-user-sessions.service
 User = poweroffd
 Group = poweroffd
 Type = simple
-ExecStart = /usr/local/bin/poweroffd --pin 17
+ExecStart = /usr/local/opt/virtualenvs/poweroffd/bin/python \
+                /usr/local/opt/virtualenvs/poweroffd/bin/vol_webui \
+                    --pin 17
 Restart = on-failure
 RestartSec = 15
 
