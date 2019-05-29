@@ -1,0 +1,14 @@
+[Unit]
+Description = poweroff from the GPIO button
+After = systemd-user-sessions.service
+
+[Service]
+User = {{ user }}
+Group = {{ user }}
+Type = simple
+ExecStart = {{ env }}/bin/python {{ env }}/bin/vol_webui --pin={{ pin }}
+Restart = on-failure
+RestartSec = 15
+
+[Install]
+WantedBy = multi-user.target
